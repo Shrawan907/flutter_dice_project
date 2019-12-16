@@ -25,8 +25,14 @@ class DicePage extends StatefulWidget {
 class _DicePageState extends State<DicePage> {
   int ldnumber = 1;
   int rdnumber = 1;
-  int lnumber = 1;
-  int rnumber = 1;
+  int lnumber = 1,tlnumber = 1;
+  int rnumber = 1,trnumber = 1;
+  void changediceface() {
+    setState(() {
+      tlnumber = Random().nextInt(6)+1;
+      trnumber = Random().nextInt(6)+1;
+    });
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -47,16 +53,18 @@ class _DicePageState extends State<DicePage> {
 
             },
             child: Image.asset('images/dice$ldnumber.png'),
+
             ),
           ),
+
           Expanded(
             child: FlatButton(
             onPressed: (){
               setState(() {
-                if(rdnumber == 6)
-                  rdnumber = 1;
+                if(rdnumber == 1)
+                  rdnumber = 6;
                 else
-                  rdnumber += 1;
+                  rdnumber -= 1;
               });
 
             },
@@ -66,6 +74,7 @@ class _DicePageState extends State<DicePage> {
 
         ],
         ),
+
         SizedBox(
           height: 10.0,
         ),
@@ -95,7 +104,29 @@ class _DicePageState extends State<DicePage> {
             ),
           ],
         ),
-
+        SizedBox(
+          height: 10.0,
+        ),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: FlatButton(
+                onPressed: (){
+                  changediceface();
+                },
+                child: Image.asset('images/dice$tlnumber.png'),
+              ),
+            ),
+            Expanded(
+              child: FlatButton(
+                onPressed: (){
+                  changediceface();
+                },
+                child: Image.asset('images/dice$trnumber.png'),
+              ),
+            ),
+          ],
+        ),
       ],
     ),
   );
